@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" >
+  <div class="sidebar" :style="{ width: sidebarWidth }">
     <span class="sidebar__header" @click="toggleSidebar">
       <svg
         class="svg-custom"
@@ -24,7 +24,7 @@
         </g>
       </svg>
       <div class="sidebar__header__text" :class="{ collapsed }">
-        <span v-if="collapsed">F</span>
+        <span v-if="collapsed"></span>
         <span v-else>Functions</span>
       </div>
     </span>
@@ -63,7 +63,7 @@
         </g>
       </svg>
       <div class="sidebar__header__text" :class="{ collapsed }">
-        <span v-if="collapsed">F</span>
+        <span v-if="collapsed"></span>
         <span v-else>Function 1</span>
       </div>
     </RouterLink>
@@ -89,7 +89,7 @@
         </g>
       </svg>
       <div class="sidebar__header__text" :class="{ collapsed }">
-        <span v-if="collapsed">F</span>
+        <span v-if="collapsed"></span>
         <span v-else>Function 2</span>
       </div>
     </RouterLink>
@@ -120,7 +120,7 @@
         </g>
       </svg>
       <div class="sidebar__header__text" :class="{ collapsed }">
-        <span v-if="collapsed">F</span>
+        <span v-if="collapsed"></span>
         <span v-else>Function 3</span>
       </div>
     </RouterLink>
@@ -132,8 +132,11 @@ import { ref } from "vue";
 import { collapsed, toggleSidebar, sidebarWidth } from "../store/toggle.js";
 
 window.addEventListener("resize", () => {
-  if (window.innerWidth <= 768) {
-    toggleSidebar();
+  if (window.outerWidth <= 768) {
+    collapsed.value = true;
+  }
+  if (window.outerWidth > 768) {
+    collapsed.value = false;
   }
 });
 </script>
@@ -148,7 +151,7 @@ a {
   flex-direction: column;
   background-color: #e4e4e4;
   color: black;
-  transition: 0.2s ease-out;
+  transition: 0.2s all ease-out;
   float: left;
   //   position: fixed;
   //   z-index: 1;
@@ -156,10 +159,6 @@ a {
   left: 0;
   bottom: 0;
   padding: 16px;
-
-  @media (max-width: 768px) {
-    width: 30px;
-  }
 }
 
 .svg-custom {
